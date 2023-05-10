@@ -1,0 +1,161 @@
+server:
+  port: 8080
+
+rest-pool:
+  base-url: http://internal.mercadolibre.com
+
+moderations-pool:
+  connection-timeout: 400
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+inbound-pool:
+  connection-timeout: 400
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+gateway-pool:
+  connection-timeout: 400
+  read-socket-timeout: 1100
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+inventory-sales-quantity-pool:
+  connection-timeout: 400
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+inventory-problem-pool:
+  connection-timeout: 400
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+    
+planner-pool:
+  connection-timeout: 400
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+  base-url: http://is-planner-production.melisystems.com
+
+
+kvs-recommendations-cache:
+  container-name: ${KEY_VALUE_STORE_RECOMMENDATIONS_CACHE_CONTAINER_NAME}
+  connection:
+    timeout: 200
+    max-connections: 60
+    connections-per-route: 60
+  socket:
+    timeout: 200
+  max-retries: 2
+  retry-delay: 30
+
+items-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+
+restrictions-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+stockdetail-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+stock-config-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+stock-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+users-config-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+inbound-qty-control-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+inventory-config-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+metrics-pool:
+  connection-timeout: 400
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 200
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:
+
+stock-aging-pool:
+  connection-timeout: 200
+  read-socket-timeout: 500
+  max-pool-wait: 100
+  max-connections: 100
+  retries: 1
+  delay-between-retries: 100
+  base-url-suffix:

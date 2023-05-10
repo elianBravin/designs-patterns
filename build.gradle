@@ -1,0 +1,121 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.artifacts.furycloud.io/repository/all" }
+        maven { url "https://repo.maven.apache.org/maven2" }
+    }
+
+    dependencies {
+        classpath group: 'com.mercadolibre', name: 'i18n', version: '1.21.0'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id "io.franzbecker.gradle-lombok" version "3.1.0"
+    id 'java'
+    id 'jacoco'
+    id 'org.checkerframework' version '0.6.9'
+}
+
+
+group = 'com.mercadolibre'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    maven { url "https://maven.artifacts.furycloud.io/repository/all" }
+}
+
+configurations {
+    providedRuntime
+}
+
+bootJar {
+    archiveName 'application.jar'
+}
+
+dependencies {
+    // Spring
+    implementation('org.springframework.boot:spring-boot-starter-web'){
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-jetty')
+    implementation("commons-io:commons-io:2.7")
+
+    //Meli Libs
+    implementation('com.fury:furyutils:0.0.2'){
+        exclude module: 'commons-io:commons-io:2.4'
+    }
+    implementation('com.mercadolibre.json:json-core:0.0.13')
+    implementation('com.mercadolibre.json_jackson:json-jackson:0.1.1')
+    implementation('com.mercadolibre.resilience:resilience-core:1.1.1')
+    implementation('com.mercadolibre.metrics:metrics-core:0.0.13')
+    implementation('com.mercadolibre.metrics:datadog-metric-wrapper:0.0.13')
+    implementation('com.mercadolibre:threading:0.1.4')
+    implementation('com.mercadolibre:routing:2.2.1')
+    implementation('com.mercadolibre.fbm:fbm-rest-utils:4.65.5')
+    implementation("com.mercadolibre:mqclient:1.0.3")
+    implementation("com.mercadolibre:kvsclient:0.5.3")
+    implementation("com.mercadolibre.fbm:fbm-test-utils:1.0.0")
+    implementation("com.mercadolibre:spring-boot-starter-config:3.3.1")
+
+    //Others
+    implementation('com.newrelic.agent.java:newrelic-api:6.3.0')
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.3')
+    implementation('com.mercadolibre:i18n:2.0.0')
+    implementation fileTree(dir: 'lib', include: '*.jar')
+    implementation("log4j:log4j:1.2.17")
+    implementation 'org.jetbrains:annotations:20.1.0'
+
+    //Tests
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.2.1.RELEASE')
+    testImplementation group: "io.cucumber", name: "cucumber-java", version: "4.7.2"
+    testImplementation group: "io.cucumber", name: "cucumber-junit", version: "4.7.2"
+    testImplementation group: "io.cucumber", name: "cucumber-spring", version: "4.7.2"
+    testImplementation('com.mercadolibre.restclient:restclient-core:0.5.5')
+}
+
+apply plugin: 'com.mercadolibre.i18n'
+
+test {
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task run(type: JavaExec) {
+    main = "org.example.PatternDesignsApplication"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: [])
+        }))
+    }
+}
+
+check.dependsOn jacocoTestReport
